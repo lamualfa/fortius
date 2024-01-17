@@ -1,0 +1,19 @@
+meta {
+  name: Create
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{API_URL}}/products
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Bottle 2",
+    "cogs": 21000,
+    "selling_price": 30000
+  }
+}

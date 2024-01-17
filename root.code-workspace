@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": ["javascript", "typescript"]
+  },
+  "folders": [
+    {
+      "name": "Root",
+      "path": "."
+    },
+    {
+      "name": "Apps / API",
+      "path": "apps/api"
+    },
+    {
+      "name": "Apps / Backoffice",
+      "path": "apps/backoffice"
+    }
+  ]
+}
