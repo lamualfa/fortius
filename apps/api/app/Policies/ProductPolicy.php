@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Enums\PermissionEnum;
-use App\Models\Product;
 use App\Models\User;
 
 class ProductPolicy

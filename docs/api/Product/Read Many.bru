@@ -1,19 +1,15 @@
 meta {
-  name: Read
+  name: Read Many
   type: http
-  seq: 3
+  seq: 1
 }
 
 get {
-  url: {{API_URL}}/products/{{ID}}
+  url: {{API_URL}}/products
   body: none
   auth: bearer
 }
 
 auth:bearer {
   token: {{ACCESS_TOKEN}}
-}
-
-vars:pre-request {
-  ID: 1
 }

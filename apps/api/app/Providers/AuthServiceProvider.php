@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 
-use App\Enums\PermissionEnum;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Policies\ProductPolicy;
 use App\Policies\TransactionPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Product::class => ProductPolicy::class,
         Transaction::class => TransactionPolicy::class,
+        User::class => UserPolicy::class
     ];
 
     /**

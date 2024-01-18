@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'author_id',
     ];
 
     /**
@@ -63,5 +65,10 @@ class User extends Authenticatable
         return Attribute::make(
             set: fn() => $this->getAllPermissions()->pluck('name')
         );
+    }
+
+    public function author(): HasOne
+    {
+        return $this->hasOne($this::class, 'author_id', 'id');
     }
 }

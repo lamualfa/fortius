@@ -1,1 +1,1 @@
-php artisan passport:client --personal
+./vendor/bin/sail php artisan passport:client --personal --name backoffice

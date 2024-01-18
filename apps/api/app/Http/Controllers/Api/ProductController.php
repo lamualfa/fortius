@@ -19,8 +19,8 @@ class ProductController extends Controller
     public function index()
     {
 
-        $data = QueryBuilder::for(Product::class)->get();
-        return $this->respondWithSuccess($data);
+        $products = QueryBuilder::for(Product::class)->get();
+        return $this->respondWithSuccess($products);
     }
 
     /**
@@ -30,16 +30,16 @@ class ProductController extends Controller
     {
         $this->authorize('create', Product::class);
 
-        $incomingData = $request->validate([
+        $productData = $request->validate([
             'name' => ['required'],
             'cogs' => ['required'],
             'selling_price' => ['required']
         ]);
 
-        $data = new Product($incomingData);
-        $data->save();
+        $product = new Product($productData);
+        $product->save();
 
-        return $this->respondCreated($data);
+        return $this->respondCreated($product);
     }
 
     /**
@@ -47,8 +47,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $data = Product::query()->findOrFail($id);
-        return $this->respondWithSuccess($data);
+        $product = Product::query()->findOrFail($id);
+        return $this->respondWithSuccess($product);
     }
 
     /**
@@ -58,12 +58,12 @@ class ProductController extends Controller
     {
         $this->authorize('update', Product::class);
 
-        $incomingData = $request->validate();
+        $productData = $request->validate();
 
-        $data = Product::query()->findOrFail($id);
-        $data->update($incomingData);
+        $product = Product::query()->findOrFail($id);
+        $product->update($productData);
 
-        return $this->respondWithSuccess($data);
+        return $this->respondWithSuccess($product);
     }
 
     /**
@@ -72,8 +72,9 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $this->authorize('delete', Product::class);
-        $data = Product::query()->findOrFail($id);
-        $data->delete();
+
+        $product = Product::query()->findOrFail($id);
+        $product->delete();
 
         return $this->respondWithSuccess();
     }

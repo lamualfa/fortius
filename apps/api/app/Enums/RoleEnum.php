@@ -20,10 +20,25 @@ enum RoleEnum: string
         PermissionEnum::CreateTransaction,
         PermissionEnum::ReadTransaction,
         PermissionEnum::ReadAnyTransaction,
+
+        PermissionEnum::CreateUser,
+        PermissionEnum::ReadUser,
+        PermissionEnum::ReadAuthoredUser,
+        PermissionEnum::ReadManyUser,
+        PermissionEnum::UpdateUser,
+        PermissionEnum::UpdateAuthoredUser,
+        PermissionEnum::DeleteUser,
+        PermissionEnum::DeleteAuthoredUser,
+
+        PermissionEnum::AssignRole,
+        PermissionEnum::AssignCashierRole
       ],
       static::Cashier => [
         PermissionEnum::CreateTransaction,
         PermissionEnum::ReadTransaction,
+
+        PermissionEnum::ReadUser,
+        PermissionEnum::UpdateUser
       ],
     };
   }
