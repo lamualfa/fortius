@@ -4,14 +4,6 @@ namespace App\Enums;
 
 enum PermissionEnum: string
 {
-  case CreateProduct = 'create-product';
-  case UpdateProduct = 'update-product';
-  case DeleteProduct = 'delete-product';
-
-  case ReadTransaction = 'read-transaction';
-  case ReadAnyTransaction = 'read-any-transaction';
-  case CreateTransaction = 'create-transaction';
-
   case CreateUser = 'create-user';
   case ReadUser = 'read-user';
   case ReadAuthoredUser = 'read-authored-user';
@@ -27,4 +19,17 @@ enum PermissionEnum: string
   case AssignRole = 'assign-role';
   case AssignAnyRole = 'assign-any-role';
   case AssignCashierRole = 'assign-cashier-role';
+
+  case CreateProduct = 'create-product';
+  case UpdateProduct = 'update-product';
+  case DeleteProduct = 'delete-product';
+
+  case CreateTransaction = 'create-transaction';
+  case ReadTransaction = 'read-transaction';
+  case ReadAuthoredUserTransaction = 'read-authored-user-transaction';
+  case ReadAnyTransaction = 'read-any-transaction';
+  case ReadManyTransaction = 'read-many-transaction';
+  case DeleteTransaction = 'delete-transaction';
+  case DeleteAuthoredUserTransaction = 'delete-authored-user-transaction';
+  case DeleteAnyTransaction = 'delete-any-transaction';
 }

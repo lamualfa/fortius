@@ -13,14 +13,6 @@ enum RoleEnum: string
     return match ($this) {
       static::Admin => PermissionEnum::cases(),
       static::Manager => [
-        PermissionEnum::CreateProduct,
-        PermissionEnum::UpdateProduct,
-        PermissionEnum::DeleteProduct,
-
-        PermissionEnum::CreateTransaction,
-        PermissionEnum::ReadTransaction,
-        PermissionEnum::ReadAnyTransaction,
-
         PermissionEnum::CreateUser,
         PermissionEnum::ReadUser,
         PermissionEnum::ReadAuthoredUser,
@@ -31,14 +23,25 @@ enum RoleEnum: string
         PermissionEnum::DeleteAuthoredUser,
 
         PermissionEnum::AssignRole,
-        PermissionEnum::AssignCashierRole
+        PermissionEnum::AssignCashierRole,
+
+        PermissionEnum::CreateProduct,
+        PermissionEnum::UpdateProduct,
+        PermissionEnum::DeleteProduct,
+
+        PermissionEnum::ReadTransaction,
+        PermissionEnum::ReadManyTransaction,
+        PermissionEnum::ReadAuthoredUserTransaction,
+        PermissionEnum::DeleteTransaction,
+        PermissionEnum::DeleteAuthoredUserTransaction
       ],
       static::Cashier => [
+        PermissionEnum::ReadUser,
+        PermissionEnum::UpdateUser,
+
         PermissionEnum::CreateTransaction,
         PermissionEnum::ReadTransaction,
-
-        PermissionEnum::ReadUser,
-        PermissionEnum::UpdateUser
+        PermissionEnum::ReadManyTransaction
       ],
     };
   }

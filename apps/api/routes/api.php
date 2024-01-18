@@ -3,8 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DevController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::apiResource('/products', ProductController::class);
     Route::apiResource('/users', UserController::class);
+    Route::apiResource('/transactions', TransactionController::class);
 });
 
 Route::post('/sign-in', [AuthController::class, 'signIn']);

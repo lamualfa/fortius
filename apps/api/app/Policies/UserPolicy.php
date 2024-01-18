@@ -8,7 +8,7 @@ use App\Models\User;
 
 class UserPolicy
 {
-    public function action(User $author, PermissionEnum $permission)
+    public function permission(User $author, PermissionEnum $permission)
     {
         return $author->hasPermissionTo($permission);
     }

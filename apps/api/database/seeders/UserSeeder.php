@@ -56,6 +56,7 @@ class UserSeeder extends Seeder
             'name' => 'Cashier 1',
             'email' => 'cashier-1@email.com',
             'password' => Hash::make('cashier-1@email.com'),
+            'author_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ])
@@ -65,6 +66,7 @@ class UserSeeder extends Seeder
             'name' => 'Cashier 2',
             'email' => 'cashier-2@email.com',
             'password' => Hash::make('cashier-2@email.com'),
+            'author_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ])

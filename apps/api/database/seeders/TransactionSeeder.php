@@ -15,11 +15,6 @@ class TransactionSeeder extends Seeder
     {
         Transaction::insert([
             [
-                'author_id' => 1,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'author_id' => 2,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
@@ -30,17 +25,22 @@ class TransactionSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'author_id' => 3,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
                 'author_id' => 4,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'author_id' => 4,
+                'author_id' => 5,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'author_id' => 6,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'author_id' => 6,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

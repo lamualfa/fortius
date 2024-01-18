@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('action', [User::class, PermissionEnum::ReadManyUser]);
+        $this->authorize('permission', [User::class, PermissionEnum::ReadManyUser]);
 
         $author = $request->user();
         $usersQuery = QueryBuilder::for(User::class);
@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function store(MutateUserRequest $request)
     {
-        $this->authorize('action', [User::class, PermissionEnum::CreateUser]);
+        $this->authorize('permission', [User::class, PermissionEnum::CreateUser]);
 
         $userData = $request->validate([
             'name' => ['required'],
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('action', [User::class, PermissionEnum::ReadUser]);
+        $this->authorize('permission', [User::class, PermissionEnum::ReadUser]);
         $this->authorize(
             'ownership',
             [
@@ -79,7 +79,7 @@ class UserController extends Controller
      */
     public function update(MutateUserRequest $request, User $user)
     {
-        $this->authorize('action', [User::class, PermissionEnum::UpdateUser]);
+        $this->authorize('permission', [User::class, PermissionEnum::UpdateUser]);
         $this->authorize(
             'ownership',
             [
@@ -105,7 +105,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('action', [User::class, PermissionEnum::UpdateUser]);
+        $this->authorize('permission', [User::class, PermissionEnum::UpdateUser]);
         $this->authorize(
             'ownership',
             [
