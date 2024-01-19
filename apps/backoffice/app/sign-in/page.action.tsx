@@ -17,7 +17,6 @@ export async function handleSubmit(
   prevState: HandleSubmitState,
   formData: FormData
 ): Promise<HandleSubmitState> {
-  console.log(Object.fromEntries(formData.entries()))
   try {
     await signIn({
       email: formData.get(FieldName.Email),
