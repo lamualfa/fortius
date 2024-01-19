@@ -16,7 +16,7 @@
 | -------------------------------------------- | ------------------------------------------------------- |
 | [apps/api](apps/api/readme.md)               | API Server using Laravel 10                             |
 | [apps/backoffice](apps/backoffice/readme.md) | Admin Panel using Next.js 14 (React.js)                 |
-| [docs/apis](docs/apis/readme.md)             | API Collection using [Bruno](https://www.usebruno.com/) |
+| [docs/api](docs/api/readme.md)             | API Collection using [Bruno](https://www.usebruno.com/) |
 
 <hr/>
 
