@@ -25,7 +25,7 @@
 ```bash
 composer update
 ./vendor/bin/sail up
-./vendor/bin/sail migrate:fresh --seed
+./vendor/bin/sail artisan migrate:fresh --seed
 ./vendor/bin/sail artisan passport:client --personal --name backoffice
 ```
 
