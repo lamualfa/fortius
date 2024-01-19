@@ -14,6 +14,7 @@
     "@carbon/icons-react": "^11.33.0",
     "@carbon/react": "^1.47.0",
     "clsx": "^2.1.0",
+    "ky": "^1.2.0",
     "next": "14.0.5-canary.59",
     "nextjs-themes": "^2.1.1",
     "nextjs-toploader": "^1.6.4",

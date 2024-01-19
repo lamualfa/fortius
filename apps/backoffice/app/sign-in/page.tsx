@@ -1,15 +1,18 @@
-'use client'
-
-import { ArrowRight } from '@carbon/icons-react'
-import { Button, Content, TextInput } from '@carbon/react'
+import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 
+import { Content } from '@/element/carbon'
 import { PageHeader } from '@/element/page-header'
+import { getMe } from '@/lib/auth'
 
-// @ts-ignore
-const { PasswordInput } = TextInput
+import { Form } from './page.element'
 
-export default function SignInPage() {
+export default async function SignInPage() {
+  const me = await getMe()
+  if (me) {
+    return redirect('/')
+  }
+
   return (
     <Fragment>
       <PageHeader />
@@ -17,19 +20,7 @@ export default function SignInPage() {
         <div className='flex justify-center'>
           <div className='md:w-96'>
             <h1 className='text-3xl'>Sign In</h1>
-
-            <form className='flex flex-col mt-5 gap-y-5'>
-              <TextInput id='email' type='email' labelText='Email' />
-              <PasswordInput
-                id='password'
-                type='password'
-                labelText='Password'
-              />
-
-              <div className='flex justify-end mt-4'>
-                <Button renderIcon={ArrowRight}>Sign In</Button>
-              </div>
-            </form>
+            <Form />
           </div>
         </div>
       </Content>

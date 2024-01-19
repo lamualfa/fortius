@@ -10,6 +10,9 @@ class TransactionItem extends Model
 {
     use HasFactory;
 
+    // Disable the timestamp to prevent Factory from generating mock timestamps
+    public $timestamps = false;
+
     public function transaction(): HasOne
     {
         return $this->hasOne(Transaction::class);

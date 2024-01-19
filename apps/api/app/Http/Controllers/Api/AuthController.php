@@ -33,9 +33,11 @@ class AuthController extends Controller
         ]);
 
         if (!Auth::attempt($incomingData)) {
-            return ValidationException::withMessages([
-                'email' => 'The provided credentials do not match our records.'
-            ]);
+            return response([
+                'errors' => [
+                    'email' => 'The provided credentials do not match our records.'
+                ]
+            ], 401);
         }
 
         $user = User::query()

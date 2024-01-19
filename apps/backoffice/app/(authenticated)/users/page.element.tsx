@@ -1,9 +1,17 @@
 'use client'
 
-import { UserCertification, UserFavorite } from '@carbon/icons-react'
+import {
+  Add,
+  Edit,
+  TrashCan,
+  UserCertification,
+  UserMilitary,
+  UserSpeaker,
+} from '@carbon/icons-react'
 import {
   Button,
   DataTable,
+  InlineLoading,
   Table,
   TableBody,
   TableCell,
@@ -15,13 +23,23 @@ import {
   TableToolbarContent,
   Tag,
 } from '@carbon/react'
+import Link from 'next/link'
+import { Fragment, useState } from 'react'
+
+import { type User } from '@/lib/user'
+
+import { handleDeleteUser } from './page.action'
 
 const RoleTags = {
+  admin: <Tag renderIcon={UserMilitary}>Admin</Tag>,
   manager: <Tag renderIcon={UserCertification}>Manager</Tag>,
-  customer: <Tag renderIcon={UserFavorite}>Customer</Tag>,
+  cashier: <Tag renderIcon={UserSpeaker}>Cashier</Tag>,
 }
 
-export function ListUsersTable() {
+export interface ListUsersTableProps {
+  data: User[]
+}
+export function ListUsersTable(props: ListUsersTableProps) {
   return (
     <DataTable
       headers={[
@@ -34,44 +52,36 @@ export function ListUsersTable() {
           key: 'name',
         },
         {
-          header: 'Role',
-          key: 'role',
-        },
-      ]}
-      rows={[
-        {
-          id: '1',
-          email: 'user1@email.com',
-          name: 'User 1',
-          role: 'manager',
+          header: 'Roles',
+          key: 'roles_names',
         },
         {
-          id: '2',
-          email: 'user2@email.com',
-          name: 'User 2',
-          role: 'customer',
+          header: 'Actions',
+          key: '',
         },
       ]}
+      // @ts-ignore
+      rows={props.data}
     >
       {({
         rows,
         headers,
         getHeaderProps,
         getRowProps,
-        getSelectionProps,
         getToolbarProps,
-        getBatchActionProps,
-        onInputChange,
-        selectedRows,
         getTableProps,
-        getTableContainerProps,
-        selectRow,
       }) => (
         <TableContainer>
           <TableToolbar {...getToolbarProps()}>
             <TableToolbarContent>
-              <Button tabIndex={0} kind='primary'>
-                Add new
+              <Button
+                tabIndex={0}
+                as={Link}
+                kind='primary'
+                renderIcon={Add}
+                href={'/users/create'}
+              >
+                Create
               </Button>
             </TableToolbarContent>
           </TableToolbar>
@@ -109,7 +119,11 @@ export function ListUsersTable() {
                   </TableCell>
                   <TableCell key={row.cells[2].id}>
                     {/* @ts-ignore */}
-                    {RoleTags[row.cells[2].value]}
+                    {row.cells[2].value.map((v) => RoleTags[v])}
+                  </TableCell>
+                  <TableCell key={row.cells[3].id}>
+                    {/* @ts-ignore */}
+                    <ActionsButtons userId={row.id} />
                   </TableCell>
                 </TableRow>
               ))}
@@ -118,5 +132,40 @@ export function ListUsersTable() {
         </TableContainer>
       )}
     </DataTable>
+  )
+}
+
+interface ActionsButtonsProps {
+  userId: User['id']
+}
+function ActionsButtons(props: ActionsButtonsProps) {
+  const [isLoading, setIsLoading] = useState(false)
+
+  return isLoading ? (
+    <InlineLoading description='Deleting user' />
+  ) : (
+    <Fragment>
+      <Button
+        as={Link}
+        renderIcon={Edit}
+        size='sm'
+        kind='ghost'
+        href={`/users/${props.userId}/edit`}
+      >
+        Edit
+      </Button>
+      <Button
+        renderIcon={TrashCan}
+        size='sm'
+        kind='danger--ghost'
+        onClick={async () => {
+          setIsLoading(true)
+          await handleDeleteUser(props.userId)
+          setIsLoading(false)
+        }}
+      >
+        Delete
+      </Button>
+    </Fragment>
   )
 }

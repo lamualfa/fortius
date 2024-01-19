@@ -1,0 +1,19 @@
+meta {
+  name: Count
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{API_URL}}/users/count?filter[roles.name]=cashier
+  body: none
+  auth: bearer
+}
+
+query {
+  filter[roles.name]: cashier
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
+}

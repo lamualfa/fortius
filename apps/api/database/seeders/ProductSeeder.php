@@ -63,6 +63,27 @@ class ProductSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'name' => 'Ruler',
+                'cogs' => 2000,
+                'selling_price' => 5000,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Hat',
+                'cogs' => 30000,
+                'selling_price' => 35000,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Belt',
+                'cogs' => 50000,
+                'selling_price' => 60000,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
         ]);
     }
 }

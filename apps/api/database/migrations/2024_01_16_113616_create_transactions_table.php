@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('author_id')->references('id')->on('users');
+            $table->foreignId('author_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

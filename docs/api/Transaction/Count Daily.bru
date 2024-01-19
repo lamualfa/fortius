@@ -1,0 +1,15 @@
+meta {
+  name: Count Daily
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{API_URL}}/transactions/count/daily
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
+}

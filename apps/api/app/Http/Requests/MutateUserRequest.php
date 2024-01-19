@@ -16,9 +16,9 @@ class MutateUserRequest extends EnhancedFormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', "min:3", 'max:255'],
-            'email' => ['string', 'email'],
-            'password' => ['string', 'min:5'],
+            'name' => ['bail', 'string', "min:3", 'max:255'],
+            'email' => ['bail', 'string', 'email'],
+            'password' => ['bail', 'string', 'min:5'],
             'role' => [Rule::enum(RoleEnum::class)]
         ];
     }

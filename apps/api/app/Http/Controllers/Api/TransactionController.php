@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\TransactionItem;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TransactionController extends Controller
@@ -35,6 +37,38 @@ class TransactionController extends Controller
         }
 
         return $transactionsQuery->where('author_id', $author->id)->get();
+    }
+
+    /**
+     * Count the resource.
+     */
+    public function count(Request $request)
+    {
+        $this->authorize('permission', [User::class, PermissionEnum::ReadManyTransaction]);
+
+        $author = $request->user();
+        $transactionsQuery = QueryBuilder::for(Transaction::class);
+        if ($author->hasPermissionTo(PermissionEnum::ReadAnyTransaction)) {
+            return [
+                'total' => $transactionsQuery->count()
+            ];
+        }
+
+        if ($author->hasPermissionTo(PermissionEnum::ReadAuthoredUserTransaction)) {
+            $totalTransactions = $transactionsQuery
+                ->whereHas('author', function ($query) use ($author) {
+                    $query->where('author_id', $author->id);
+                })
+                ->orWhere('author_id', $author->id)
+                ->count();
+            return [
+                'total' => $totalTransactions
+            ];
+        }
+
+        return [
+            'total' => $transactionsQuery->where('author_id', $author->id)->count()
+        ];
     }
 
     /**
@@ -107,5 +141,17 @@ class TransactionController extends Controller
         $transaction->deleteOrFail();
 
         return response();
+    }
+
+    public function countDaily()
+    {
+        return Transaction::select(
+            DB::raw('DATE(created_at) as date'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->whereDate('created_at', '>=', Carbon::now()->subDays(90))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
     }
 }

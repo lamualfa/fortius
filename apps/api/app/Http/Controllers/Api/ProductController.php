@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MutateProductRequest;
 use App\Models\Product;
+use App\Models\TransactionItem;
 use F9Web\ApiResponseHelpers;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductController extends Controller
@@ -21,6 +23,18 @@ class ProductController extends Controller
 
         $products = QueryBuilder::for(Product::class)->get();
         return $this->respondWithSuccess($products);
+    }
+
+    /**
+     * Count the resource.
+     */
+    public function count()
+    {
+        $totalProducts = QueryBuilder::for(Product::class)->count();
+
+        return [
+            'total' => $totalProducts
+        ];
     }
 
     /**
@@ -77,5 +91,20 @@ class ProductController extends Controller
         $product->delete();
 
         return $this->respondWithSuccess();
+    }
+
+    public function bestSellers()
+    {
+        return TransactionItem::query()
+            ->select('product_id', DB::raw('SUM(quantity) as quantity'))
+            ->groupBy('product_id')
+            ->orderByDesc('quantity')
+            ->take(4)
+            ->get()
+            ->map(function ($v) {
+                // SQL SUM return a string instead of integer
+                $v->quantity = (int) $v->quantity;
+                return $v;
+            });
     }
 }

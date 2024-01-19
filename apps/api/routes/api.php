@@ -21,8 +21,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
 
+    Route::get('/products/count', [ProductController::class, 'count']);
+    Route::get('/products/best-sellers', [ProductController::class, 'bestSellers']);
     Route::apiResource('/products', ProductController::class);
+
+    Route::get('/users/count', [UserController::class, 'count']);
     Route::apiResource('/users', UserController::class);
+
+    Route::get('/transactions/count', [TransactionController::class, 'count']);
+    Route::get('/transactions/count/daily', [TransactionController::class, 'countDaily']);
     Route::apiResource('/transactions', TransactionController::class);
 });
 

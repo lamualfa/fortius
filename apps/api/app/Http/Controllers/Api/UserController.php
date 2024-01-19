@@ -27,9 +27,34 @@ class UserController extends Controller
             $usersQuery = $usersQuery->where('author_id', $author->id);
         }
 
-        $users = $usersQuery->get();
+        $users = $usersQuery->get()
+            ->map(function ($v) {
+                $v->roles_names = null;
+                return $v;
+            });
 
         return $users;
+    }
+
+    /**
+     * Count the resource.
+     */
+    public function count(Request $request)
+    {
+        $this->authorize('permission', [User::class, PermissionEnum::ReadManyUser]);
+
+        $author = $request->user();
+        $usersQuery = QueryBuilder::for(User::class)
+            ->allowedFilters('roles.name');
+        if (!$author->hasPermissionTo(PermissionEnum::ReadAnyUser)) {
+            $usersQuery = $usersQuery->where('author_id', $author->id);
+        }
+
+        $totalUsers = $usersQuery->count();
+
+        return [
+            'total' => $totalUsers
+        ];
     }
 
     /**
@@ -45,11 +70,21 @@ class UserController extends Controller
             'password' => ['required'],
             'role' => ['required']
         ]);
+        $isEmailExists = User::query()->where('email', $userData['email'])->exists();
+        if ($isEmailExists) {
+            return response([
+                'errors' => [
+                    'email' => 'Email is already in use.'
+                ]
+            ], 409);
+        }
+
         $this->authorize('roleAssignment', [User::class, $userData['role']]);
 
         $author = $request->user();
         $user = new User($userData);
         $user->author_id = $author->id;
+        $user->assignRole($userData['role']);
         $user->save();
 
         return $user;
@@ -70,6 +105,7 @@ class UserController extends Controller
                 PermissionEnum::ReadAnyUser
             ]
         );
+        $user->roles_names = null;
 
         return $user;
     }
@@ -91,11 +127,15 @@ class UserController extends Controller
         );
 
         $userData = $request->validate();
-        if (array_key_exists('role', $userData)) {
+        $isRoleChanged = array_key_exists('role', $userData);
+        if ($isRoleChanged) {
             $this->authorize('roleAssignment', [User::class, $userData['role']]);
         }
 
         $user->update($userData);
+        if ($isRoleChanged) {
+            $user->assignRole($userData['role']);
+        }
 
         return $user;
     }
@@ -118,6 +158,6 @@ class UserController extends Controller
 
         $user->deleteOrFail();
 
-        return response();
+        return $this->respondWithSuccess();
     }
 }

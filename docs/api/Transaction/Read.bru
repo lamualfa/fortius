@@ -1,0 +1,19 @@
+meta {
+  name: Read
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{API_URL}}/transactions/{{ID}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
+}
+
+vars:pre-request {
+  ID: 7
+}
