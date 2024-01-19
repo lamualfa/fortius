@@ -119,7 +119,7 @@ export function AuthenticatedPageHeader(props: AuthenticatedPageHeaderProps) {
                       as={Link}
                       renderIcon={Settings}
                       size='sm'
-                      href={'/my-account/settings'}
+                      href={`/users/${props.account.id}/edit`}
                     >
                       Settings
                     </Button>

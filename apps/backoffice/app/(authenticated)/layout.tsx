@@ -28,13 +28,10 @@ export default async function ManagerLayout(props: PropsWithChildren) {
             User
           </HeaderMenuItem>
           <HeaderMenuItem as={Link} href='/products'>
-            Product
+            Product (WIP)
           </HeaderMenuItem>
           <HeaderMenuItem as={Link} href='/transactions'>
-            Transaction
-          </HeaderMenuItem>
-          <HeaderMenuItem as={Link} href='/me'>
-            My Account
+            Transaction (WIP)
           </HeaderMenuItem>
         </Fragment>
       }
