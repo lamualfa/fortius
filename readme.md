@@ -45,7 +45,7 @@
 
 ### Progressive UI
 
-![Screencast from 2024-01-20 01-50-30](https://github.com/lamualfa/fortius/assets/39755201/b54bd993-8b29-4617-8c0d-a9788d0553ca)
+[Screencast from 2024-01-20 01-50-30.webm](https://github.com/lamualfa/fortius/assets/39755201/e116347b-ddf4-452f-926e-4a8b41812cab)
 
 ![hr](https://user-images.githubusercontent.com/39755201/159233055-3bd55a37-7284-46ad-b759-5ab0c13b3828.png)
 
