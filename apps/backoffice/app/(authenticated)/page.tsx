@@ -176,7 +176,7 @@ function ProductSaleSkeleton() {
   )
 }
 
-export async function DailyTransactions() {
+async function DailyTransactions() {
   const data = await countDailyTransactions()
   return <DailyTransactionsChart data={data} />
 }
