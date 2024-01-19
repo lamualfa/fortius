@@ -1,6 +1,7 @@
 'use client'
 
 import { AreaChart } from '@carbon/charts-react'
+import { useTheme } from '@carbon/react'
 
 import { type countDailyTransactions } from '@/lib/transaction'
 
@@ -8,12 +9,14 @@ export interface DailyTransactionsChartProps {
   data: Awaited<ReturnType<typeof countDailyTransactions>>
 }
 export function DailyTransactionsChart(props: DailyTransactionsChartProps) {
+  const { theme } = useTheme()
   return (
     // @ts-ignore
     <AreaChart
       options={{
         height: '400px',
         width: '100%',
+        theme,
         axes: {
           bottom: {
             title: 'Date',
